@@ -1,0 +1,5 @@
+---
+minecraft:
+    hosts:
+        minecraft.icestation.is:
+        ansible_host:
