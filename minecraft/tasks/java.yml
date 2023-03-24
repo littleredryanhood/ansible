@@ -1,0 +1,6 @@
+---
+- name: install java
+  apt:
+    name: "{{ java_package }}"
+    state: present
+    update_cache: true

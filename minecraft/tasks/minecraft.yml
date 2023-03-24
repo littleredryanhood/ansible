@@ -1,0 +1,21 @@
+---
+- name: get latest minecraft jar
+    wget: "{{ minecraft_jar }}"
+    dest: "{{ minecraft_dest }}"
+
+- name: create minecraft user
+  user:
+    name: "minecraft"
+    shell: "/sbin/nologin"
+    create_home: true
+    home: /opt/minecraft
+
+- name: 
+
+- name: accept eula
+  lineinfile:
+        path: /opt/minecraft/server/eula.txt
+        line: 'eula=true'
+        mode: '0444'
+        owner: minecraft
+        group: minecraft
