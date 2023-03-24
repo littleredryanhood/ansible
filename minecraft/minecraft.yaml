@@ -1,9 +1,0 @@
----
-name: Install-prereqs
-hosts: minecraft-servers
-become: true
-become_user: root
-tasks:
-    -
-        apt:
-            name:
