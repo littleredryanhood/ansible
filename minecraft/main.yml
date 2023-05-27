@@ -1,0 +1,16 @@
+---
+ - name: deploy a new minecraft server
+   hosts: minecraft
+   remote_user: ubuntu
+   become: true
+   become_user: root
+  
+    tasks:
+    - name: Include tasks from java.yml
+      include_tasks: tasks/java.yml
+
+    - name: Include tasks from minecraft.yml
+      include_tasks: tasks/minecraft.yml
+
+    - name: Include tasks from systemd.yml
+      include_tasks: tasks/systemd.yml
