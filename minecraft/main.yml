@@ -4,8 +4,7 @@
    remote_user: ubuntu
    become: true
    become_user: root
-  
-    tasks:
+   tasks:
     - name: Include tasks from java.yml
       include_tasks: tasks/java.yml
 
