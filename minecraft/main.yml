@@ -5,8 +5,8 @@
    become: true
    become_user: root
    tasks:
-    - name: Include tasks from java.yml
-      include_tasks: tasks/java.yml
+    - name: install dependencies
+      include_tasks: tasks/dependencies.yml
 
     - name: Include tasks from minecraft.yml
       include_tasks: tasks/minecraft.yml

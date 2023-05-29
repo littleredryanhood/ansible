@@ -6,4 +6,9 @@
     owner: root
     group: root
 
-- name:
+- name: enable and start the minecraft service
+  systemd:
+    name: minecraft.service
+    enabled: true
+    state: started
+    daemon_reload: true

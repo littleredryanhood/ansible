@@ -1,11 +1,26 @@
 [Unit]
-Description=Minecraft Java Server
+Description=Minecraft Server %i
 After=network.target
 
 [Service]
+WorkingDirectory=/opt/minecraft/%i
+Type=simple
 User=minecraft
-WorkingDirectory=/opt/minecraft
-ExecStart=java -Xmx1024M -Xms1024M -jar server.jar nogui
+Group=minecraft
+
+ExecStartPre=/bin/sh -c '/usr/bin/screen -dmS mc-%i'
+ExecStart=/bin/sh -c '/usr/bin/java -server -Xmx1024M -Xms1024M -jar server.jar --nogui'
+
+ExecReload=/usr/bin/screen -p 0 -S mc-%i -X eval 'stuff "reload"\\015'
+
+ExecStop=/usr/bin/screen -p 0 -S mc-%i -X eval 'stuff "say SERVER SHUTTING DOWN. Saving map..."\\015'
+ExecStop=/bin/sh -c '/bin/sleep ${SHUTDOWN_DELAY}'
+ExecStop=/usr/bin/screen -p 0 -S mc-%i -X eval 'stuff "save-all"\\015'
+ExecStop=/usr/bin/screen -p 0 -S mc-%i -X eval 'stuff "stop"\\015'
+ExecStop=/bin/sh -c '/bin/sleep ${POST_SHUTDOWN_DELAY}'
+
+Restart=on-failure
+RestartSec=60s
 
 [Install]
 WantedBy=multi-user.target

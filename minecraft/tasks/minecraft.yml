@@ -5,21 +5,19 @@
     shell: "/sbin/nologin"
     create_home: true
     home: /opt/minecraft
+    state: present
 
 - name: create minecraft group
   group:
     name: "minecraft"
-    state: Present
+    state: present
 
 - name: get latest minecraft jar
-    shell: curl -o /opt/minecraft/server.jar -sL $(curl `curl -sL https://launchermeta.mojang.com/mc/game/version_manifest.json | jq -r '.latest.release as $release | .versions[] | select(.id == $release) | .url'` | jq -r '.downloads.server.url')
+  shell: curl -o /opt/minecraft/server.jar -sL $(curl `curl -sL https://launchermeta.mojang.com/mc/game/version_manifest.json | jq -r '.latest.release as $release | .versions[] | select(.id == $release) | .url'` | jq -r '.downloads.server.url')
 
--
-
-- name: accept eula
-  lineinfile:
-        path: /opt/minecraft/server/eula.txt
-        line: 'eula=true'
-        mode: '0444'
-        owner: minecraft
-        group: minecraft
+- name: copy eula file
+  copy:
+    src: ../files/eula.txt
+    dest: /opt/minecraft/eula.txt
+    owner: minecraft
+    group: minecraft
