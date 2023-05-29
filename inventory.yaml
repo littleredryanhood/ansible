@@ -2,7 +2,6 @@
 minecraft:
     hosts:
         minecraft.icestation.is:
-        ansible_host:
 swarm:
     hosts:
         swarm-queen.icestation.is:

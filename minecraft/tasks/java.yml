@@ -1,6 +1,6 @@
 ---
 - name: install java
   apt:
-    name: oracle-java8-installer
+    name: openjdk-8-jdk
     state: present
     update_cache: true
