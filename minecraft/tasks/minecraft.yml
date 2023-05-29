@@ -10,6 +10,11 @@
     create_home: true
     home: /opt/minecraft
 
+- name: create minecraft group
+  group:
+    name: "minecraft"
+    state: Present
+
 - name: accept eula
   lineinfile:
         path: /opt/minecraft/server/eula.txt

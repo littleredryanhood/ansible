@@ -1,0 +1,7 @@
+---
+- name: create systemd service file
+  copy:
+    src: ../files/minecraft.service
+    dest: /etc/systemd/system
+    owner: root
+    group: root
