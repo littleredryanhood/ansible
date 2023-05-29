@@ -1,8 +1,4 @@
 ---
-- name: get latest minecraft jar
-    shell: |
-        curl -o /opt/minecraft/server.jar -sL $(curl `curl -sL https://launchermeta.mojang.com/mc/game/version_manifest.json | jq -r '.latest.release as $release | .versions[] | select(.id == $release) | .url'` | jq -r '.downloads.server.url')
-
 - name: create minecraft user
   user:
     name: "minecraft"
@@ -14,6 +10,11 @@
   group:
     name: "minecraft"
     state: Present
+
+- name: get latest minecraft jar
+    shell: curl -o /opt/minecraft/server.jar -sL $(curl `curl -sL https://launchermeta.mojang.com/mc/game/version_manifest.json | jq -r '.latest.release as $release | .versions[] | select(.id == $release) | .url'` | jq -r '.downloads.server.url')
+
+-
 
 - name: accept eula
   lineinfile:
