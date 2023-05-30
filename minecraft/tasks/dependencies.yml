@@ -5,6 +5,7 @@
     name: openjdk-19-jdk-headless
     state: present
     update_cache: true
+    install_recommends: yes
 
 - name: install jq (dependency for downloading minecraft)
   apt:
