@@ -1,0 +1,10 @@
+plugin: aws_ec2
+regions: 
+  - us-west-2
+keyed_groups:
+  - key: tags.service_minecraft
+    prefix: minecraft
+compose: 
+  ansible_host: public_ip_address
+  ansible_user: ubuntu
+  ansible_ssh_private_key_file: ~/.ssh/minecraft_keypair
