@@ -1,0 +1,14 @@
+---
+#install software dependencies for running minecraft server
+- name: install java
+  apt:
+    name: openjdk-19-jdk-headless
+    state: present
+    update_cache: true
+    install_recommends: yes
+
+- name: install jq (dependency for downloading minecraft)
+  apt:
+    name: jq
+    state: present
+    update_cache: true

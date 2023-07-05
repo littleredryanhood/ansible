@@ -1,0 +1,16 @@
+---
+ - name: deploy a new minecraft server
+   hosts: minecraft
+   remote_user: ubuntu
+   become: true
+   become_user: root
+   vars_files: /mnt/c/Users/Redhat/git/ansible/minecraft/vars/vars.yml
+   tasks:
+    - name: install dependencies
+      include_tasks: tasks/dependencies.yml
+
+    - name: Include tasks from minecraft.yml
+      include_tasks: tasks/minecraft.yml
+
+    - name: Include tasks from systemd.yml
+      include_tasks: tasks/systemd.yml

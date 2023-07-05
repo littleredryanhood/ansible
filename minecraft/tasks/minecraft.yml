@@ -1,0 +1,28 @@
+---
+- name: create minecraft user
+  user:
+    name: "{{ minecraft_user }}"
+    shell: "/sbin/nologin"
+    create_home: true
+    home: "{{ minecraft_home }}"
+    state: present
+
+- name: create minecraft group
+  group:
+    name: "{{ minecraft_group }}"
+    state: present
+
+- name: get latest minecraft jar
+  shell: "curl -o {{ minecraft_home }}/server.jar -sL $(curl `curl -sL https://launchermeta.mojang.com/mc/game/version_manifest.json | jq -r '.latest.release as $release | .versions[] | select(.id == $release) | .url'` | jq -r '.downloads.server.url')"
+
+- name: copy eula file
+  copy:
+    src: "{{ source_files }}/eula.txt"
+    dest: "{{ minecraft_home }}eula.txt"
+    owner: "{{ minecraft_user }}"
+    group: "{{ minecraft_group }}"
+
+- name: create system.properties file
+  template:
+    src: "server.properties.j2"
+    dest: "{{minecraft_home }}system.properties"

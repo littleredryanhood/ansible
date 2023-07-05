@@ -1,0 +1,26 @@
+-
+    name: configure swarm
+    hosts: swarm-nodes
+    become: true
+    become_user: root
+    tasks:
+        -
+            name: init swarm
+            docker_swarm:
+                state: present
+                advertise_addr: 192.168.7.5:2377
+                #advertise_addr should probably be a variable pulled from the inventory, we can figure that out later
+            when: inventory_hostname in groups['swarm-queen']
+        -
+            name: retrieve swarm worker token
+            shell: 'docker swarm join-token -q worker'
+            register: 'swarm_worker_token'
+            when: inventory_hostname in groups['swarm-queen']
+        -
+            name: join swarm
+            docker_swarm:
+                state: join
+                advertise_addr: 192.168.7.5:2377
+                join_token: "{{ swarm_worker_token }}" 
+                remote_addrs: [ '192.168.7.5:2377' ]
+            when: inventory_hostname in groups['swarm-workers']
