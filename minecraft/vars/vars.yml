@@ -1,9 +1,8 @@
-vars:
-#minecraft server vars
-  minecraft_user: minecraft
-  minecraft_group: minecraft
-  minecraft_home: /opt/minecraft
-  source_files: ../files/
+---
+  minecraft_user: "minecraft"
+  minecraft_group: "minecraft"
+  minecraft_home: "/opt/minecraft"
+  source_files: "../files/"
 # Minecraft app vars
   enable_jmx_monitoring: "false"
   rcon_port: 25575
